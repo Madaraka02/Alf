@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Travel Kenya</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,700,900|Display+Playfair:200,300,400,700"> 
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
+
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+  </head>
+  <body>
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+    <header class="site-navbar py-1" role="banner">
+  <!-- navbar -->
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+    <header class="site-navbar py-1" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0"><a href="{% url 'home' %}" class="text-black h2 mb-0">TravelKenya</a></h1>
+          </div>
+          <div class="col-10 col-md-8 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right text-lg-center" role="navigation">
+
+              <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
+                <li >
+                  <a href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="#">
+                  <a href="{% url 'attractions' %}">Attractions</a>
+                 
+                </li>
+                <li class="#">
+                  <a href="{% url 'destinations' %}">Destinations</a>
+                 
+                </li>
+               
+                
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+
+              </ul>
+            </nav>
+          </div>
+
+          <div class="col-6 col-xl-2 text-right">
+            <div class="d-none d-xl-inline-block">
+  <!-- dark mode -->
+  <div>
+    <input type="checkbox" class="checkbox" id="checkbox">
+  <label for="checkbox" class="label">
+    <div class='ball'>
+  </label>
+</div>
+</div>
+<!-- end dark mode -->
+ 
+<!-- Login/sign up buttons -->
+<div>
+  {% if request.user.is_authenticated %}
+  
+  {% if request.user.is_staff %}
+  <a href="{% url 'admin_home' %}"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Admin</button> </a>
+ 
+  {% else %}
+  <a href="{% url 'user_profile' %}"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Profile</button> </a>
+  {% endif %}
+  {% else %}
+ <a href="{% url 'login' %}"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button> </a>
+  <a href="{% url 'register' %}"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Up</button></a>
+  {% endif %}
+</div>
+</div>
+<!-- end login/sign up buttons -->
+
+            <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+  
+    <!-- blogs -->
+
+    <div class="site-section block-13 bg-light">
+  
+
+      <div class="container">
+          <div class="row justify-content-center mb-5">
+            <div class="col-md-7">
+              <h2 class="font-weight-light text-black text-center">Blogs</h2>
+            </div>
+          </div>
+  
+
+          {% for blog in blogs %}
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-4 mb-5">
+                    {% if blog.image %}
+                    <img src="{{blog.image.url}}" alt="Image" class="img-md-fluid">
+                    
+                      {% endif %}
+                  </div>
+                  
+                  
+                  <div class="overlap-left col-lg-6 bg-white p-md-5 align-self-center">
+                    <h3 class="unit-1-heading">{{blog.title}}</h3>
+                    <p class="text-black lead">&ldquo;
+                      {{blog.snippet}}.&ldquo;</p>
+                    <p class="">&mdash; <em>{{blog.author.username}}</em>, <a href="#">Traveler</a></p> 
+                    <div class="flex items-center flex-wrap ">
+                      {% if request.user.is_authenticated %}
+                      <form method='POST' action={% url 'like' blog.id %} style="margin-left: 5px; margin-right:5px;"> 
+                        {% csrf_token %}
+                        <input name='next' value='{{request.path}}' type='hidden' /> 
+                        <button type='submit'>
+                          <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                        </button>
+                         <span>{{blog.likes.all.count}}</span>
+                        </form> 
+
+                        <form method='POST' action={% url 'dislike' blog.id %} style="margin-left: 5px; margin-right:5px;"> 
+                          {% csrf_token %}
+                          <input name='next' value='{{request.path}}' type='hidden' /> 
+                          <button type='submit'>
+                            <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                          </button>
+                           <span>{{blog.dislikes.all.count}}</span>
+                          </form> 
+                          {%endif %}
+                      <span onclick="myFunction('{{blog.id}}')"  id="showcomment" style="cursor: pointer;" class="text-gray-400 inline-flex items-center leading-none text-sm">
+                        <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                          <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
+                        </svg>{{blog.comment_set.all.count}}
+                      </span>
+                    </div>
+                      
+                     
+
+
+                           <div class=""  id="{{blog.id}}" style="display: block;">
+                           {% for comment in blog.comment_set.all %}
+                            <p class=""><em>{{comment.comment}}</em>, <a href="#">{{comment.author.username}}</a></p>
+                            {% endfor %}
+
+                            {% if request.user.is_authenticated %}
+                        <textarea name="" id="" cols="30" rows="3" class="form-control-group comment-text"></textarea>
+                        <button type='submit' data-blog="{{blog.id}}" class="btn btn-sm comment">
+                          <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
+                          </svg>
+                        </button>
+                        {% endif %}
+                        {% if blog.author == request.user %}
+                            
+                        {% endif %}
+                      </div>
+                  </div>
+                </div>
+              </div>
+              
+              {% endfor %}
+
+              
+            </div>
+  
+            </div>
+            </div>
+  
+  
+          </div>
+        </div>
+      </div>
+
+   <!-- footer -->
+    <footer>
+      <div class="site-section border-top">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-12">
+        <strong> <a href="{% url 'home' %}"> <h2 class="mb-5 text-black">TRAVEL KENYA</h2></a></strong> 
+              <div class="d-none d-xl-inline-block">
+                <a href="#" class="icon-button twitter"><i class="icon-twitter"></i><span></span></a>
+  <a href="#" class="icon-button facebook"><i class="icon-facebook"></i><span></span></a>
+  <a href="#" class="icon-button google-plus"><i class="icon-instagram"></i><span></span></a>    
+        </div>
+              
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('.comment').on('click', function(){
+        var _comment=$('.comment-text').val();
+        var _blogId=$(this).data('blog')
+
+        $.ajax({
+          url:"{% url 'comment' %}",
+          type:'post',
+          data:{
+            comment:_comment,
+            blog:_blogId,
+            csrfmiddlewaretoken:"{{csrf_token}}"
+
+          },
+          dataType:'json',
+          beforeSend:function(){
+            $('.comment').addClass('disabled').text('saving.....')
+
+          },
+          success:function(res){
+            $('.comment').removeClass('disabled').text('comment')
+
+          }
+
+        })
+      })
+    })
+  </script>
+      <script>
+        
+        
+
+        function myFunction(id) {
+            var btncomment = document.getElementById('showcomment')
+            var commentdiv = document.getElementById(id);
+            if (commentdiv.style.display === "none") {
+                commentdiv.style.display = "block";
+            } else {
+                commentdiv.style.display = "none";
+            }
+        }
+
+
+    </script>
+    
+  </body>
+</html>

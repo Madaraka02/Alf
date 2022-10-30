@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static  'css/style.css' %}">
+
+    <!-- FontAwesome 5 -->
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    
+  
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar top -->
+    <div class="navbar-top">
+        <div class="title">
+            <h1>Profile</h1>
+        </div>
+
+        <!-- Navbar -->
+        <ul>
+            <ul>
+                <li>
+                    <a href="#home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+         
+         
+        </ul>
+        <!-- End -->
+    </div>
+    <!-- End -->
+
+    <!-- Sidenav -->
+    <div class="sidenav">
+        <div class="profile">
+            <img src="{% static 'img/stations.jpg' %}" alt="" width="100" height="100">
+
+            <div class="name">
+                Brian Nduko
+            </div>
+            <div class="job">
+               Traveler
+            </div>
+        </div>
+
+        <div class="sidenav-url">
+   
+            <div class="url">
+                <a href="#settings">blogs</a>
+                <hr align="center">
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+
+    <!-- Main -->
+    <div class="main">
+        <h2>IDENTITY</h2>
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>UserName</td>
+                            <td>:</td>
+                            <td>Nduko Brian</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>:</td>
+                            <td>imdezcode@gmail.com</td>
+                        
+                        <tr>
+                            <td>Job</td>
+                            <td>:</td>
+                            <td>Admin</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+      
+       <!-- written blog -->
+       <div class="section">
+        <h2>WRITTEN BLOGS</h2>
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Blog Title</td>
+                            <td>:</td>
+                            <td>Elephants</td>
+                        </tr>
+                        <tr>
+                            <td>Blog Content</td>
+                            <td>:</td>
+                            <td>Traveling to the moon is a dream for many people. It is a dream that can be achieved by anyone who is willing to put in the work. The first step is to learn how to travel to the moon. This article will teach you how to travel to the moon.</td>
+                        </tr>
+                        <tr>
+                            <td>Blog Image</td>
+                            <td>:</td>
+                            <td><img src="./img/ele.jpg" alt="" width="100" height="100"></td>
+                        </tr>
+                        <tr>
+                            <td>Blog Date</td>
+                            <td>:</td>
+                            <td>12/12/2020</td>
+                        </tr>
+                        <tr>
+                            <td>Writer</td>
+                            <td>:</td>
+                            <td>Brian Nduko</td>
+                        </tr>
+                        <div>
+                            <a href="./login.html"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">post</button> </a>
+                             <a href="./signup.html"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">delete</button></a>
+                           </div>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- End -->
+</body>
+</html>

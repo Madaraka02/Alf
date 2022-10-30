@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+</head>
+<body>
+    {% for blog in blogs %}
+    <p>{{blog.title}}</p>
+    <p>{{blog.snippet}}</p>
+        <form method='POST' action={% url 'like' blog.pk %}> 
+        {% csrf_token %}
+        <input name='next' value='{{request.path}}' type='hidden' /> 
+        <button type='submit'>like</button>
+         <span>{{blog.likes.all.count}}</span>
+        </form> 
+        <form method='POST' action={% url 'dislike' blog.pk %}> 
+            {% csrf_token %}
+            <input name='next' value='{{request.path}}' type='hidden' /> 
+            <button type='submit'>dislike</button>
+             <span>{{blog.dislikes.all.count}}</span>
+            </form>
+            <button onclick="myFunction()" id="showcomment">show comment form</button>
+            <div id="commentdiv" class="" >
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p}}
+                    <button type='submit'>post</button>
+                </form>
+            </div>
+
+    {% endfor %}
+
+    <script>
+        
+        
+
+        function myFunction(id) {
+            var btncomment = document.getElementById('showcomment')
+            var commentdiv = document.getElementById('commentdiv');
+        if (commentdiv.style.display === "none") {
+            commentdiv.style.display = "block";
+            btncomment.innerHTML='close'
+        } else {
+            commentdiv.style.display = "none";
+            btncomment.innerHTML='show comment form'
+        }
+        }
+
+
+    </script>
+</body>
+</html>

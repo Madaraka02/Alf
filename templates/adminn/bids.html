@@ -1,0 +1,68 @@
+{% extends 'dash.html' %}
+{% block content %}
+
+
+<div class=" col mt-4 mb-4">
+    <h4 class="mt-2 mb-2">Message</h4>
+    <table class="table align-middle mb-2 bg-white">
+        <thead class="bg-light">
+          <tr>
+            <th>Name</th>
+            <th>By</th>
+            <th>Price</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for bid in messages %}
+          <tr>
+              <td>{{bid.name}}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{bid.email}}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">{{bid.message}}</p>
+            </td>
+
+            <td>
+                <a href="{% url 'delete_message' bid.id %}" class="btn btn-outline-danger">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+    
+        </tbody>
+      </table>
+      <div class="container mt-2 align-items-center justify-content-center">
+        <div class="row text-center">
+
+
+      <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {% if bids.has_previous %}    
+            <li class="page-item">
+              <a href="?page={{ bids.previous_page_number }}" class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">
+              page {{ bids.number }} of {{ bids.paginator.num_pages }}
+            </a></li>
+            {% if bids.has_next %}
+            <li class="page-item">
+              <a href="?page={{ bids.next_page_number }}" class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            {% endif %}
+
+          </ul>
+        </nav>
+      </div>
+    </div>
+</div>
+{% endblock content %}

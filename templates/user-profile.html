@@ -1,0 +1,129 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- FontAwesome 5 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+  
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+   <!-- Navbar top -->
+   <div class="navbar-top" style="position:fixed;">
+    <div class="title">
+        <h1> user Profile</h1>
+    </div>
+
+    <!-- Navbar -->
+    <ul>
+       
+        <li>
+            <a href="{% url 'home' %}">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+            </a>
+        </li>
+    </ul>
+    <!-- End -->
+</div>
+<!-- End -->
+
+<!-- Sidenav -->
+<div class="sidenav">
+    <div class="profile">
+        <img src="./img/stations.jpg" alt="" width="100" height="100">
+    
+        <div class="name">
+            {{request.user.username}}
+        </div>
+        <div class="job">
+           Traveler
+        </div>
+    </div>
+
+    <div class="url">
+        
+        <a href="#write-blog">write blog</a>
+        <hr align="center">
+    </div>
+
+
+    <div class="url">
+        
+        <a href="">Your Blogs</a>
+        <hr align="center">
+    </div>
+</div>
+
+    <!-- End -->
+
+    <!-- Main -->
+    <div class="main" id="write-blog">
+        
+        <h2>Write Blog</h2>
+        <div class="card">
+            <div class="card-body">
+    
+                <form action="">
+                    <div class="form-group">
+                        {{form|crispy}}
+                    </div>
+                        <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+      
+       <!-- written blog -->
+       <div class="section" id="written-blogs">
+        <h2>Your BLOGS</h2>
+        <div class="card">
+            <div class="card-body">
+              <div class="text-danger" ></div>
+                <table>
+                    <thead >
+                        <tr>
+                          <th>Title</th>
+                          <th>snippet</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+
+                        </tr>
+                      </thead>
+                    <tbody>
+                        {% for blog in blogs %}
+                        <tr>
+                            <td>{{blog.title}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{blog.snippet}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="{% url 'edit_blog' blog.id %}"><i class="fa fa-pen fa-xs edit">edit</i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="{% url 'delete_blog' blog.id %}"><i class="fa fa-pen fa-xs edit">delete</i></a></td>
+                        </tr>
+                  
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- End -->
+</body>
+</html>
