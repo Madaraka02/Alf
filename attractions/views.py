@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    blogs=Blog.objects.all().order_by('-id')[:4]
+    blogs=Blog.objects.filter(approved=True).order_by('-id')[:4]
     atts=Attraction.objects.all().order_by('-id')[:3]
     att3=Attraction.objects.all().order_by('-id')[3:6]
     destinations=Park.objects.all().order_by('-id')[:6]
@@ -293,7 +293,7 @@ def search(request):
     if q:
         context = {
             'data' : Attraction.objects.filter(name__icontains=q).order_by('-id'),
-            'rel_blogs' : Blog.objects.filter(snippet__icontains=q , title__icontains=q).order_by('-id'),
+            'rel_blogs' : Blog.objects.filter(snippet__icontains=q ).order_by('-id'),
         }
 
         return render(request, 'search.html', context)
@@ -301,6 +301,7 @@ def search(request):
 
 
 
+@login_required
 def user_profile(request):
     if request.user.is_authenticated:
         user=request.user
@@ -325,6 +326,7 @@ def user_profile(request):
     return redirect('home')  
 
 
+@login_required
 def book_destination(request, id):
     if request.user.is_authenticated:
         park = get_object_or_404(Park, id=id)
@@ -366,6 +368,7 @@ def contact(request):
     return render(request, 'form.html', context)        
 
 
+@login_required
 def visit_attraction(request, id):
     if request.user.is_authenticated:
         attraction = get_object_or_404(Attraction, id=id)
@@ -388,3 +391,52 @@ def visit_attraction(request, id):
             'attraction':attraction
         }
         return render(request, 'form.html', context)
+
+def reply_book(request, id):
+        # att = get_object_or_404(VisitAttraction, id = id)
+    att = get_object_or_404(Book, id = id)
+    user=att.user
+    mess='See you soon'
+    messag=Reply.objects.create(user=user, message=mess)
+    messages.success(request, "Reply send successfully")
+
+    return redirect('admin_reservations')     
+
+def reply_visit(request, id):
+        # att = get_object_or_404(VisitAttraction, id = id)
+    att = get_object_or_404(VisitAttraction, id = id)
+    user=att.user
+    mess='See you soon'
+    messag=Reply.objects.create(user=user, message=mess)
+    messages.success(request, "Reply send successfully")
+
+    return redirect('admin_rsvps')
+
+
+@login_required
+def user_mesages(request):
+    user=request.user
+    blogs=Reply.objects.filter(user=user)
+    parks_list = Reply.objects.filter(user=user).order_by('-id')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(parks_list, 15)
+    try:
+        blogs = paginator.page(page)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+    except EmptyPage:
+        blogs = paginator.page(paginator.num_pages)  
+
+
+
+    context={
+        'blogs':blogs
+    }
+    return render(request, 'user-mess.html', context)
+
+@login_required
+def delete_reply(request, id):
+    park = get_object_or_404(Reply, id = id)
+    park.delete()
+    messages.success(request, "Reply was deleted successfully")
+    return redirect('user_mesages')

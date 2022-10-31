@@ -17,6 +17,7 @@
               <th>No of people</th>
               <th>Destination</th>
               <th>Delete</th>
+              <th>reply</th>
             </tr>
           </thead>
           <tbody>
@@ -33,6 +34,9 @@
               <td>
                   <a href="{% url 'delete_dest' blog.id %}" class="btn btn-outline-danger">Delete</a>
               </td>
+              <td>
+                <a href="{% url 'reply_book' blog.id %}" class="btn btn-outline-primary">Reply</a>
+            </td>
             </tr>
             {% endfor %}
       

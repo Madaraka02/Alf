@@ -37,7 +37,10 @@ urlpatterns = [
 
     path('attractions/<int:id>/book-visit/', visit_attraction, name='visit_attraction'),
 
-
+    path('replies/<int:id>/delete/', delete_reply, name='delete_reply'),
+    path('bookings/<int:id>/reply/', reply_book, name='reply_book'),
+    path('visit/<int:id>/reply/', reply_visit, name='reply_visit'),
+    path('user/profile/replies/', user_mesages, name='user_mesages'),
 
 
 

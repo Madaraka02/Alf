@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import *
 from .models import *
 from django.contrib.auth import authenticate, login
@@ -15,6 +15,7 @@ def register(request):
             user = form.save()
 
             login(request, user)
+            return redirect('home')
 
     return render(request, 'registration/registration.html', {'form':form})        
 

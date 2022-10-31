@@ -18,6 +18,7 @@
               <th>Destination</th>
               <th>Attraction</th>
               <th>Delete</th>
+              <th>reply</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,9 @@
               <td>
                   <a href="{% url 'delete_visit' blog.id %}" class="btn btn-outline-danger">Delete</a>
               </td>
+              <td>
+                <a href="{% url 'reply_visit' blog.id %}" class="btn btn-outline-primary">Reply</a>
+            </td>
             </tr>
             {% endfor %}
       

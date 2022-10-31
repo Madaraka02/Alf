@@ -59,3 +59,7 @@ class VisitAttraction(models.Model):
 
     number_of_people = models.CharField(max_length=100, blank=True,null=True,default=1)
     date = models.DateField(null=True, blank=True)
+    
+class Reply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
+    message=models.CharField(max_length=300, blank=True,null=True)
