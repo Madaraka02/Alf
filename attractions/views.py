@@ -217,7 +217,7 @@ def edit_att(request, id):
 
 def edit_park(request, id):
     park = get_object_or_404(Park, id = id)
-    form = ParkForm(rinstance=park)
+    form = ParkForm(instance=park)
     if request.method == "POST":
         form = ParkForm(request.POST or None, instance=park)
         if form.is_valid():

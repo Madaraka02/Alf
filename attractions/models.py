@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 class Park(models.Model):
     name = models.CharField(max_length=300, unique=True, blank=False)
     image = models.FileField(upload_to='parks')
+    description = models.TextField(null=True)
     slug = AutoSlugField(populate_from='name', null=True)
 
     def __str__(self):
@@ -59,7 +60,7 @@ class VisitAttraction(models.Model):
 
     number_of_people = models.CharField(max_length=100, blank=True,null=True,default=1)
     date = models.DateField(null=True, blank=True)
-    
+
 class Reply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     message=models.CharField(max_length=300, blank=True,null=True)
